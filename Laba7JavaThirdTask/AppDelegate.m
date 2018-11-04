@@ -17,9 +17,25 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    NSArray* mutArray = @[ @-1, @-2, @-3, @-6, @-2 ];
+    NSLog(@"max value in array = %@", [NSNumber numberWithInteger:[self maxValue:mutArray]]);
     return YES;
 }
 
+- (NSInteger) maxValue:(NSArray*) array {
+    NSInteger maxValue = [[array firstObject] integerValue];
+    NSNumber* max = [array valueForKeyPath:@"@max.self"];
+    NSLog(@"max value by max.self = %@", max);
+    
+    for (NSNumber* value in array) {
+        NSInteger currentValue = [value integerValue];
+        if (currentValue > maxValue) {
+            maxValue = currentValue;
+        }
+    }
+    return maxValue;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
